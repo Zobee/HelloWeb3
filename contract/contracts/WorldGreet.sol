@@ -6,6 +6,7 @@ import "hardhat/console.sol";
 
 contract WorldGreet {
   uint256 totalHellos;
+  uint256 prizeAmount = 0.0001 ether;
   mapping(address => uint256) addressesToHellos;
   address[] uniqueAddresses;
 
@@ -34,11 +35,10 @@ contract WorldGreet {
 
     greeters.push(Greeters(msg.sender, _message, block.timestamp));
 
-    uint256 numHellosFromSender = addressesToHellos[msg.sender];
-    console.log("%s has said hello!", msg.sender);
-    console.log("This address has said hello %s time(s).", numHellosFromSender);
-
     emit NewGreeting(msg.sender, block.timestamp, _message);
+
+    require(prizeAmount <= address(this).balance, "We broke. No money left in the contract :(");
+
   }
 
   function getAllHellos() public view returns (Greeters[] memory) {
