@@ -5,7 +5,7 @@ import abi from './utils/contractABI.json'
 
 export default function App() {
 
-  const contractAddress = "0x99c65355CdA66FC9b036C0C16c3A8debA795F66F";
+  const contractAddress = "0xC003E805F17daA13eCA559Fc150458a005ae77f8";
   const contractABI = abi.abi;
   
   const [currAccount, setCurrAccount] = useState(null);
@@ -67,7 +67,7 @@ export default function App() {
 
         count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
-        
+
       } else {
         console.log("Ethereum object doesn't exist!");
       }
