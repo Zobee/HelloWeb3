@@ -8,7 +8,7 @@ const main = async () => {
   const Token = await hre.ethers.getContractFactory('WorldGreet');
   const portal = await Token.deploy();
 
-  console.log('WavePortal address: ', portal.address);
+  console.log('Contract address: ', portal.address);
 };
 
 const runMain = async () => {
