@@ -12,6 +12,9 @@ const main = async () => {
   let helloTxn = await helloContract.sayHello('Konichiwa!');
   await helloTxn.wait(); 
 
+  helloTxn = await helloContract.sayHello('Hola!');
+  await helloTxn.wait(); 
+
   contractBalance = await hre.ethers.provider.getBalance(helloContract.address);
   console.log(
     'Contract balance:',
