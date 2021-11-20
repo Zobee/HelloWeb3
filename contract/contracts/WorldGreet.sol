@@ -9,8 +9,11 @@ contract WorldGreet {
 
   uint256 totalHellos;
   uint256 prizeAmount = 0.0001 ether;
-  mapping(address => uint256) addressesToHellos;
+
   address[] uniqueAddresses;
+
+  mapping(address => uint256) addressesToHellos;
+  mapping(address => uint256) public lastHelloAt;
 
   struct Greeters {
     address greeterAddress;
@@ -30,6 +33,9 @@ contract WorldGreet {
   }
 
   function sayHello(string memory _message) public {
+
+    require(lastHelloAt[msg.sender] + 15 seconds < block.timestamp, "Wait 15m to send another message");
+
     bool isWinner = false;
     totalHellos += 1;
 
@@ -37,6 +43,7 @@ contract WorldGreet {
       uniqueAddresses.push(msg.sender);
     }
 
+    lastHelloAt[msg.sender] = block.timestamp;
     addressesToHellos[msg.sender] += 1;
 
     randomSeed = (block.difficulty + block.timestamp + randomSeed) % 100;
