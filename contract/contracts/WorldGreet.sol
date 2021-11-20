@@ -20,7 +20,7 @@ contract WorldGreet {
 
   event NewGreeting(address indexed from, uint256 timestamp, string message);
 
-  constructor() {
+  constructor() payable {
     console.log("What's poppin ETH network?");
   }
 
@@ -38,7 +38,8 @@ contract WorldGreet {
     emit NewGreeting(msg.sender, block.timestamp, _message);
 
     require(prizeAmount <= address(this).balance, "We broke. No money left in the contract :(");
-
+    (bool success, ) = (msg.sender).call{value: prizeAmount}("");
+    require(success, "Failed to withdraw");
   }
 
   function getAllHellos() public view returns (Greeters[] memory) {
